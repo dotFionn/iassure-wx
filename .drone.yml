@@ -20,6 +20,7 @@ steps:
 trigger:
   branch:
     - dev
+    - develop
 
 ---
 kind: pipeline
