@@ -80,8 +80,8 @@ export async function getDataAtFix(fix: WxFix, index: number): Promise<WxFixData
 
   for(const [qnh, fl] of Object.entries(qnhLevelMapping)) {
     const temp = Number(hourlyData?.[`temperature_${qnh}hPa`]?.[index]) + 273.15;
-    const dir = hourlyData?.[`windspeed_${qnh}hPa`]?.[index];
-    const speed = hourlyData?.[`winddirection_${qnh}hPa`]?.[index]; 
+    const dir = hourlyData?.[`winddirection_${qnh}hPa`]?.[index];
+    const speed = hourlyData?.[`windspeed_${qnh}hPa`]?.[index]; 
 
     data.levels[String(fl)] = {
       "T(K)": String(temp),
