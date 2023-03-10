@@ -8,7 +8,7 @@ steps:
     settings:
       dockerfile: Dockerfile
       registry: git.fsisp.de
-      repo: git.fsisp.de/fionn/isasure-wx
+      repo: git.fsisp.de/fionn/iassure-wx
       username:
         from_secret: reg_username
       password:
@@ -33,7 +33,7 @@ steps:
     settings:
       dockerfile: Dockerfile
       registry: git.fsisp.de
-      repo: git.fsisp.de/fionn/isasure-wx
+      repo: git.fsisp.de/fionn/iassure-wx
       username:
         from_secret: reg_username
       password:
