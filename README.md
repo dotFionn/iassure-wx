@@ -2,7 +2,7 @@
 
 ## idea
 
-This service is designed to gather weather data to be used by [IASsure](https://github.com/MorpheusXAUT/IASsure) by [MorpheusXAT](https://github.com/MorpheusXAUT). It is uses the [Open-Meteo.com](https://open-meteo.com)-API to gather the necessary data to provide to the plugin.
+This service is designed to gather weather data to be used by [IASsure](https://github.com/MorpheusXAUT/IASsure) by [MorpheusXAUT](https://github.com/MorpheusXAUT). It uses the [Open-Meteo.com](https://open-meteo.com)-API to gather the necessary data to provide to the plugin.
 
 ## Installation/Deployment
 
