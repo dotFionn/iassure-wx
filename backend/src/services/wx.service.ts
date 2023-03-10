@@ -54,6 +54,7 @@ export interface WxData {
   info: {
     date: string;
     datestring: string;
+    legal: string;
   };
   data: {
     [key: string]: WxFixData;
@@ -103,6 +104,7 @@ export async function generateData() {
       info: {
         date: now.toISOString(),
         datestring: `${now.getUTCDate()}${now.getUTCHours()}`,
+        legal: "Weather data by Open-Meteo.com (https://open-meteo.com)"
       },
       data: {}
     }
