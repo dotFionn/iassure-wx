@@ -1,0 +1,44 @@
+{
+  "$id": "https://wx.dotfionn.de/wx-config.schema.json",
+  "title": "WX-Config",
+  "description": "The configuration file",
+  "type": "object",
+  "properties": {
+    "regions": {
+      "description": "The unique identifier for a product",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "e.g. the FIR identifier, e.g. EDGG, EDWW, EDMM, LOVV, ..."
+          },
+          "fixes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "identifier of the waypoint/fix"
+                },
+                "lat": {
+                  "type": "number",
+                  "description": "latitude of the waypoint"
+                },
+                "lon": {
+                  "type": "number",
+                  "description": "longitude of the waypoint"
+                }
+              },
+              "required": ["name", "lat", "lon"]
+            }            
+          }
+        }
+      },
+      "required": ["identifier", "fixes"]
+    }
+  },
+  "required": [ "regions" ]
+}

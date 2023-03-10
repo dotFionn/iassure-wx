@@ -1,0 +1,46 @@
+kind: pipeline
+type: docker
+name: build dev
+
+steps:
+  - name: build and push image
+    image: plugins/docker
+    settings:
+      dockerfile: Dockerfile
+      registry: git.fsisp.de
+      repo: git.fsisp.de/fionn/isasure-wx
+      username:
+        from_secret: reg_username
+      password:
+        from_secret: reg_password
+      tags:
+        - dev
+        - '${DRONE_COMMIT:0:8}'
+
+trigger:
+  branch:
+    - dev
+
+---
+kind: pipeline
+type: docker
+name: build master
+
+steps:
+  - name: build and push image
+    image: plugins/docker
+    settings:
+      dockerfile: Dockerfile
+      registry: git.fsisp.de
+      repo: git.fsisp.de/fionn/isasure-wx
+      username:
+        from_secret: reg_username
+      password:
+        from_secret: reg_password
+      tags:
+        - latest
+        - '${DRONE_COMMIT:0:8}'
+
+trigger:
+  branch:
+    - main

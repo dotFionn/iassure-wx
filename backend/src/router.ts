@@ -1,10 +1,13 @@
 import { Request, Response, Router } from 'express';
-import fooController from './controllers/foo.controller';
+
+import regionController from './controllers/region.controller';
+import wxController from './controllers/wx.controller';
 
 const router = Router();
 
-router.get('/foo', fooController.getFoo);
-// aaaaa
+router.get('/regions', regionController.getRegions);
+router.get('/regions/:region', regionController.getRegion);
+router.get('/regions/:region/wx', wxController.getRegionWx);
 
 router.use((req: Request, res: Response) => {
   // 404

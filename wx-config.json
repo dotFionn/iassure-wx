@@ -1,0 +1,50 @@
+{
+  "$schema": "./wx-config.schema.json",
+  "regions": [
+    {
+      "identifier": "EDGG",
+      "fixes": [
+        {
+          "name": "DKB",
+          "lat": 49.142753,
+          "lon": 10.238306
+        },
+        {
+          "name": "DUS",
+          "lat": 51.283189,
+          "lon": 6.753725
+        },
+        {
+          "name": "NATOR",
+          "lat": 48.17,
+          "lon": 8.321261
+        },
+        {
+          "name": "RASPU",
+          "lat": 50.072778,
+          "lon": 10.098611
+        },
+        {
+          "name": "PAD",
+          "lat": 51.610178,
+          "lon": 8.618653
+        }
+      ]
+    },
+    {
+      "identifier": "LOVV",
+      "fixes": [
+        {
+          "name": "VATET",
+          "lat": 47.600953,
+          "lon": 14.033119
+        },
+        {
+          "name": "LNZ",
+          "lat": 48.229711,
+          "lon": 14.103156
+        }
+      ]
+    }
+  ]
+}
