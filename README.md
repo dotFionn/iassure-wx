@@ -6,7 +6,7 @@ This service is designed to gather weather data to be used by [IASsure](https://
 
 ## Installation/Deployment
 
-IASsure-WX can be installed using docker. The image is available at `git.fsisp.de/fionn/iassure`.
+IASsure-WX can be installed using docker. The image is available at `git.fsisp.de/fionn/iassure-wx`.
 
 Tags:
   - `latest` - The newest recommended build, built from `main`
