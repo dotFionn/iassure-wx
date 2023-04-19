@@ -28,5 +28,7 @@ PORT=3000
 BASE_PATH=/api
 # defines ips that are allowed as proxy ips
 # See http://expressjs.com/en/guide/behind-proxies.html
-TRUST_PROXY_ID=
+TRUST_PROXY=
+# set to true to disable /api-Endpoint. will also diable frontend.
+DISABLE_DEFAULT_API_ENDPOINT=
 ```
