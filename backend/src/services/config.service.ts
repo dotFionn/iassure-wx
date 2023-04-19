@@ -23,4 +23,4 @@ export function getConfig(): WxConfig {
 
 export default {
   getConfig,
-}
+};

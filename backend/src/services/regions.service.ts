@@ -1,6 +1,6 @@
-import configService, { WxConfig, WxRegion } from "./config.service";
+import configService, { WxConfig, WxRegion } from './config.service';
 
-export function getRegions(): WxConfig["regions"] {
+export function getRegions(): WxConfig['regions'] {
   return configService.getConfig().regions;
 }
 

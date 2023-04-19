@@ -3,19 +3,26 @@ import nodesched from 'node-schedule';
 import morgan from 'morgan';
 import router from './router';
 import wxService from './services/wx.service';
-
-const { PORT = 3000, BASE_PATH = '/api' } = process.env;
+import appConfig from './config';
 
 const app = express();
 
-app.set('trust proxy', true);
+const config = appConfig();
+
+app.set('trust proxy', config.trustProxy);
 app.use(morgan('combined'));
 
-app.use(BASE_PATH, router.router);
+if (config.apiBasePath) {
+  app.use(config.apiBasePath, router.router);
+}
 
-const frontendRoot = '/opt/frontend/dist';
-app.use(express.static(frontendRoot));
-app.use((req, res) => res.sendFile(`${frontendRoot}/index.html`));
+if (!config.disableDefaultApiEndpoint) {
+  app.use('/api', router.router);
+
+  const frontendRoot = '/opt/frontend/dist';
+  app.use(express.static(frontendRoot));
+  app.use((req, res) => res.sendFile(`${frontendRoot}/index.html`));
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err, req: Request, res: Response, next: NextFunction) => {
@@ -25,16 +32,16 @@ app.use((err, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ msg: 'an error occurred' });
 });
 
-nodesched.scheduleJob('regenerate data', '*/30 * * * * *', wxService.wrappedGenerateData)
+nodesched.scheduleJob('regenerate data', '*/30 * * * * *', wxService.wrappedGenerateData);
 wxService.wrappedGenerateData();
 
-const server = app.listen(PORT, () => {
+const server = app.listen(config.port, () => {
   console.log(
-    `application is listening on port ${PORT}`,
+    `application is listening on port ${config.port}`,
   );
 });
 
-const shutdown = (signal: string) => {
+function processShutdown(signal: string) {
   console.log(`${signal} signal received. Shutting down.`);
   server.close((err) => {
     if (err) {
@@ -45,7 +52,6 @@ const shutdown = (signal: string) => {
     console.log('Server closed');
     process.exit(0);
   });
-};
+}
 
-process.on('SIGTERM', () => shutdown('SIGTERM'));
-process.on('SIGINT', () => shutdown('SIGINT'));
+['SIGTERM', 'SIGINT'].map(signal => process.on(signal, processShutdown.bind(undefined, signal)));
