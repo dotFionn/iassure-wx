@@ -15,7 +15,7 @@ export async function getRegion(req: express.Request, res: express.Response, nex
 
     const regionData = regionsService.getRegion(region);
 
-    if(!regionData) {
+    if (!regionData) {
       return next();
     }
 

@@ -1,8 +1,8 @@
-import axios from "axios";
-import { WxFix } from "./config.service";
-import regionsService from "./regions.service";
+import axios from 'axios';
+import { WxFix } from './config.service';
+import regionsService from './regions.service';
 
-const cachedData: {[key: string]: WxData} = {};
+const cachedData: { [key: string]: WxData } = {};
 
 const qnhLevelMapping = {
   200: 390,
@@ -12,7 +12,7 @@ const qnhLevelMapping = {
   500: 180,
   600: 140,
   700: 100,
-  850: 50
+  850: 50,
 };
 
 const necessaryDatapoints = [
@@ -34,10 +34,10 @@ for (const qnh of Object.keys(qnhLevelMapping)) {
 }
 
 interface WxLevelData {
-  "T(K)": string;
+  'T(K)': string;
   windspeed: string;
   windhdg: string;
-};
+}
 
 export interface WxFixData {
   coords: {
@@ -68,27 +68,27 @@ export async function getDataAtFix(fix: WxFix, index: number): Promise<WxFixData
   const data: WxFixData = {
     coords: {
       lat: String(fix.lat),
-      long: String(fix.lon)
+      long: String(fix.lon),
     },
-    levels: {}
-  }
-
-  data.levels["0"] = {
-    "T(K)": String(Number(hourlyData?.[`temperature_2m`]?.[index]) + 273.15),
-    "windspeed": String(hourlyData?.[`windspeed_10m`]?.[index]),
-    "windhdg": String(hourlyData?.[`winddirection_10m`]?.[index]),
+    levels: {},
   };
 
-  for(const [qnh, fl] of Object.entries(qnhLevelMapping)) {
+  data.levels['0'] = {
+    'T(K)': String(Number(hourlyData?.temperature_2m?.[index]) + 273.15),
+    'windspeed': String(hourlyData?.windspeed_10m?.[index]),
+    'windhdg': String(hourlyData?.winddirection_10m?.[index]),
+  };
+
+  for (const [qnh, fl] of Object.entries(qnhLevelMapping)) {
     const temp = Number(hourlyData?.[`temperature_${qnh}hPa`]?.[index]) + 273.15;
     const dir = hourlyData?.[`winddirection_${qnh}hPa`]?.[index];
     const speed = hourlyData?.[`windspeed_${qnh}hPa`]?.[index]; 
 
     data.levels[String(fl)] = {
-      "T(K)": String(temp),
-      "windspeed": String(speed),
-      "windhdg": String(dir),
-    }
+      'T(K)': String(temp),
+      'windspeed': String(speed),
+      'windhdg': String(dir),
+    };
   }
 
   return data;
@@ -104,10 +104,10 @@ export async function generateData() {
       info: {
         date: now.toISOString(),
         datestring: `${now.getUTCDate()}${now.getUTCHours()}`,
-        legal: "Weather data by Open-Meteo.com (https://open-meteo.com)"
+        legal: 'Weather data by Open-Meteo.com (https://open-meteo.com)',
       },
-      data: {}
-    }
+      data: {},
+    };
 
     for (const fix of region.fixes) {
       regionData.data[fix.name] = await getDataAtFix(fix, now.getUTCHours());
@@ -133,4 +133,4 @@ export default {
   getWx,
   generateData,
   wrappedGenerateData,
-}
+};

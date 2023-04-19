@@ -25,7 +25,7 @@ app.use((err, req: Request, res: Response, next: NextFunction) => {
   res.status(500).json({ msg: 'an error occurred' });
 });
 
-nodesched.scheduleJob('regenerate data', '*/30 * * * * *', wxService.wrappedGenerateData)
+nodesched.scheduleJob('regenerate data', '*/30 * * * * *', wxService.wrappedGenerateData);
 wxService.wrappedGenerateData();
 
 const server = app.listen(PORT, () => {
