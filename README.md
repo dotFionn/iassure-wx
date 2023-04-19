@@ -16,3 +16,17 @@ Tags:
 ## Configuration
 
 IASsure-WX can be configured using the `wx-config.json`-file. For now it contains test data but will include production data for at least the Langen FIR. It necessary, another file can be mounted on top of it (`/opt/wx-config.json`). You may also choose to make the necessary changes to the file in this repository. The file is documented in the schema definition file (`wx-config.schema.json`).
+
+## Environment Variables
+
+Some options can be defined using environment variables:
+
+```bash 
+# defines the port, the application will listen on
+PORT=3000
+# defines the base path used for the api
+BASE_PATH=/api
+# defines ips that are allowed as proxy ips
+# See http://expressjs.com/en/guide/behind-proxies.html
+TRUST_PROXY_ID=
+```
