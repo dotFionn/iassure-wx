@@ -4,11 +4,11 @@ import morgan from 'morgan';
 import router from './router';
 import wxService from './services/wx.service';
 
-const { PORT = 3000, BASE_PATH = '/api' } = process.env;
+const { PORT = 3000, BASE_PATH = '/api', TRUST_PROXY_IP = false } = process.env;
 
 const app = express();
 
-app.set('trust proxy', true);
+app.set('trust proxy', TRUST_PROXY_IP);
 app.use(morgan('combined'));
 
 app.use(BASE_PATH, router.router);
