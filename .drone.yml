@@ -3,12 +3,12 @@ type: docker
 name: build dev
 
 steps:
-  - name: build and push image
+  - name: build for staging
     image: plugins/docker
     settings:
       dockerfile: Dockerfile
-      registry: git.fsisp.de
-      repo: git.fsisp.de/fionn/iassure-wx
+      registry: hub.fsisp.de
+      repo: hub.fsisp.de/library/iassure-wx
       username:
         from_secret: reg_username
       password:
@@ -16,32 +16,27 @@ steps:
       tags:
         - dev
         - '${DRONE_COMMIT:0:8}'
+    when:
+      branch:
+        - dev
+        - develop
+      event:
+        - push
 
-trigger:
-  branch:
-    - dev
-    - develop
-
----
-kind: pipeline
-type: docker
-name: build master
-
-steps:
-  - name: build and push image
+  - name: build for production
     image: plugins/docker
     settings:
       dockerfile: Dockerfile
-      registry: git.fsisp.de
-      repo: git.fsisp.de/fionn/iassure-wx
+      registry: hub.fsisp.de
+      repo: hub.fsisp.de/library/iassure-wx
       username:
         from_secret: reg_username
       password:
         from_secret: reg_password
       tags:
         - latest
+        - '${DRONE_TAG}'
         - '${DRONE_COMMIT:0:8}'
-
-trigger:
-  branch:
-    - main
+    when:
+      event:
+        - tag

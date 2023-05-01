@@ -6,7 +6,7 @@ This service is designed to gather weather data to be used by [IASsure](https://
 
 ## Installation/Deployment
 
-IASsure-WX can be installed using docker. The image is available at `git.fsisp.de/fionn/iassure-wx`.
+IASsure-WX can be installed using docker. The image is available at `hub.fsisp.de/library/iassure-wx`.
 
 Tags:
   - `latest` - The newest recommended build, built from `main`
@@ -29,6 +29,6 @@ BASE_PATH=/api
 # defines ips that are allowed as proxy ips
 # See http://expressjs.com/en/guide/behind-proxies.html
 TRUST_PROXY=
-# set to true to disable /api-Endpoint. will also diable frontend.
+# set to true to disable /api-Endpoint. will also disable frontend.
 DISABLE_DEFAULT_API_ENDPOINT=
 ```
