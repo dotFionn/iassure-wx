@@ -59,4 +59,4 @@ COPY --from=frontendbuild --chown=node:node /opt/frontend/dist/ /opt/frontend/di
 
 RUN npm install --quiet --unsafe-perm --no-progress --no-audit --omit=dev
 
-CMD node --es-module-specifier-resolution=node dist/app.js
+CMD node --es-module-specifier-resolution=node dist/backend/src/app.js

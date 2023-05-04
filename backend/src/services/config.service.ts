@@ -1,19 +1,6 @@
 import fs from 'fs';
+import { WxConfig } from '@shared/types/config.types';
 
-export interface WxConfig {
-  regions: WxRegion[];
-}
-
-export interface WxRegion {
-  identifier: string;
-  fixes: WxFix[];
-}
-
-export interface WxFix {
-  name: string;
-  lat: number;
-  lon: number;
-}
 
 export function getConfig(): WxConfig {
   const data = JSON.parse(fs.readFileSync('/opt/wx-config.json').toString());

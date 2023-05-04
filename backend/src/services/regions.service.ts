@@ -1,4 +1,5 @@
-import configService, { WxConfig, WxRegion } from './config.service';
+import configService from './config.service';
+import { WxConfig, WxRegion } from '@shared/types/config.types';
 
 export function getRegions(): WxConfig['regions'] {
   return configService.getConfig().regions;
