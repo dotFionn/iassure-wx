@@ -63,17 +63,32 @@ function App() {
             <thead>
               <tr>
                 <th>#</th>
+                <th>Region</th>
+                <th>Fixes</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              {regions.length ? regions.map((region, idx) => <tr key={idx}>
-                <td>{idx + 1}</td>
-                <td>{region.identifier}</td>
-                <td>{region.fixes.length} Fixes</td>
-                <td><Button variant='primary' type='button' onClick={() => setSelectedRegion(region.identifier)}>Select</Button></td>
-              </tr>) : <>
-                  <tr><td className='p-2 text-center' colSpan={5}>- no regions defined -</td></tr>
-              </>}
+              {regions.length ? regions.map((region, idx) => <>
+                <tr key={idx}>
+                  <td>{idx + 1}</td>
+                  <td>{region.identifier}</td>
+                  <td>{region.fixes.length} Fixes</td>
+                  <td>
+                    <Button
+                      variant={selectedRegion == region.identifier ? 'success' : 'primary'}
+                      type='button'
+                      onClick={() => setSelectedRegion(region.identifier)}
+                    >
+                      Select
+                    </Button>
+                  </td>
+                </tr>
+              </>) : (<>
+                <tr>
+                  <td className='p-2 text-center' colSpan={4}>- no regions defined -</td>
+                </tr>
+              </>)}
             </tbody>
           </Table>
         </Modal.Body>
