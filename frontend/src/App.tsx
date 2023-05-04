@@ -55,7 +55,7 @@ function App() {
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Regions</Modal.Title>
         </Modal.Header>
         <Modal.Body>
