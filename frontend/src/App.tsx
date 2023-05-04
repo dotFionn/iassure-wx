@@ -123,93 +123,36 @@ function App() {
           </LayersControl.Overlay>
           <LayersControl.Overlay checked name="Points">
             <LayerGroup>
-                {/* {dots.map((dot, index) => <Circle key={index} center={dot.pos} radius={400} pathOptions={{ fillColor: dot.color, color: dot.color }}>
-                  <Popup>{dot.label}</Popup>
-                </Circle>)} */}
-                {Object.entries(wxData?.data || {}).map(([fix, data], idx) => (
-                  <>
-                  {/* <Circle key={idx} center={[Number(data.coords.lat), Number(data.coords.long)]} radius={5000} pathOptions={{ fillColor: 'green', color: 'green', fillOpacity: 1 }}>
-                     <Popup>
-                       <Table>
-                         <thead>
-                           <tr><th colSpan={3} className='text-center'>{fix}</th></tr>
-                           <tr><th>Lvl</th><th>Temp/K</th><th>Wind</th></tr>
-                         </thead>
-                         <tbody>
-                           {Object.entries(data.levels).map(([lvl, lvlData], lvlIdx) => (
-                             <tr key={lvlIdx}>
-                               <td>{lvl}</td>
-                               <td>{Math.round(Number(lvlData['T(K)']))}</td>
-                               <td>{lvlData.windhdg}° / {lvlData.windspeed}kts</td>
-                             </tr>
-                           ))}
-                         </tbody>
-                       </Table>
-                     </Popup>
-                   </Circle> */}
-                  <Marker
-                    position={[Number(data.coords.lat), Number(data.coords.long)]}
-                    key={fix}
-                    title={fix}
-                    icon={new DivIcon({ html: `⨀&nbsp;<span class="fw-bold">${fix}</span>`, className: 'bg-none text-warning' })}
-                  >
-                    <Popup>
-                       <Table>
-                         <thead>
-                           <tr><th colSpan={3} className='text-center'>{fix}</th></tr>
-                           <tr><th>Lvl</th><th>Temp/K</th><th>Wind</th></tr>
-                         </thead>
-                         <tbody>
-                           {Object.entries(data.levels).map(([lvl, lvlData], lvlIdx) => (
-                             <tr key={lvlIdx}>
-                               <td>{lvl}</td>
-                               <td>{Math.round(Number(lvlData['T(K)']))}</td>
-                               <td>{lvlData.windhdg}° / {lvlData.windspeed}kts</td>
-                             </tr>
-                           ))}
-                         </tbody>
-                       </Table>
-                     </Popup>
-                  </Marker>
-                  </>
-                ))}
-              </LayerGroup>
-            </LayersControl.Overlay>
-
-          
-
-          {/* {populatedRoutes.filter(r => !!r).map((populatedRoute, idx) => {
-            if (!populatedRoute) {
-              return null;
-            }
-
-            const line: [number, number][] = [];
-            const dots: { pos: [number, number], color: string, label: string }[] = [];
-
-            if (populatedRoute.adep) {
-              line.push([populatedRoute.adep.lat, populatedRoute.adep.lon]);
-              dots.push({ pos: [populatedRoute.adep.lat, populatedRoute.adep.lon], color: 'red', label: `${populatedRoute.adep.icao} / ${populatedRoute.adep.name}` });
-            }
-            
-            for (const point of populatedRoute.points) {
-              line.push([point.lat, point.lon]);
-              dots.push({ pos: [point.lat, point.lon], color: 'blue', label: point.identifier });
-            }
-            
-            if (populatedRoute.ades) {
-              line.push([populatedRoute.ades.lat, populatedRoute.ades.lon]);
-              dots.push({ pos: [populatedRoute.ades.lat, populatedRoute.ades.lon], color: 'green', label: [populatedRoute.ades.icao, populatedRoute.ades.name].join(' ') });
-            }
-
-            return <LayersControl.Overlay checked name={`${populatedRoute.adep?.icao}${populatedRoute.ades?.icao}`} key={idx}>
-              <LayerGroup>
-                <Polyline pathOptions={{ color: 'yellow' }} positions={line} />
-                {dots.map((dot, index) => <Circle key={index} center={dot.pos} radius={400} pathOptions={{ fillColor: dot.color, color: dot.color }}>
-                  <Popup>{dot.label}</Popup>
-                </Circle>)}
-              </LayerGroup>
-            </LayersControl.Overlay>;
-          })} */}
+              {Object.entries(wxData?.data || {}).map(([fix, data]) => (
+                <>
+                <Marker
+                  position={[Number(data.coords.lat), Number(data.coords.long)]}
+                  key={fix}
+                  title={fix}
+                  icon={new DivIcon({ html: `⨀&nbsp;<span class="fw-bold">${fix}</span>`, className: 'bg-none text-warning' })}
+                >
+                  <Popup>
+                      <Table>
+                        <thead>
+                          <tr><th colSpan={3} className='text-center'>{fix}</th></tr>
+                          <tr><th>Lvl</th><th>Temp/K</th><th>Wind</th></tr>
+                        </thead>
+                        <tbody>
+                          {Object.entries(data.levels).map(([lvl, lvlData], lvlIdx) => (
+                            <tr key={lvlIdx}>
+                              <td>{lvl}</td>
+                              <td>{Math.round(Number(lvlData['T(K)']))}</td>
+                              <td>{lvlData.windhdg}° / {lvlData.windspeed}kts</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </Popup>
+                </Marker>
+                </>
+              ))}
+            </LayerGroup>
+          </LayersControl.Overlay>
         </LayersControl>
       </MapContainer>
     </>
