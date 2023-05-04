@@ -105,7 +105,7 @@ function App() {
             '<a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
             '<a href="https://carto.com/attributions" target="_blank">CARTO</a>',
             'Weather data by Open-Meteo.com (<a href="https://open-meteo.com" target="_blank">open-meteo.com</a>)',
-            'IASsure-WX: <a href="https://fsperath.de" target="_blank">Fionn Sperath</a> and <a href="https://github.com/dotFionn/iassure-wx/graphs/contributors" target="_blank">contributors</a>',
+            '<a href="https://github.com/dotFionn/iassure-wx" target="_blank">IASsure-WX</a>: <a href="https://fsperath.de" target="_blank">Fionn Sperath</a> and <a href="https://github.com/dotFionn/iassure-wx/graphs/contributors" target="_blank">contributors</a>',
           ].map(str => `&copy; ${str}`).join(' | ')}
           subdomains={'abc'}
           maxZoom={20}
