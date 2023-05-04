@@ -1,7 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import { MapContainer, TileLayer, LayersControl, Circle, LayerGroup, Popup, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, LayersControl, LayerGroup, Popup, Marker } from 'react-leaflet';
 import { Button, Modal, Table } from 'react-bootstrap';
 
 import { useEffect, useState } from 'react';
