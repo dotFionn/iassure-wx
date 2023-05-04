@@ -12,6 +12,7 @@ import { DivIcon } from 'leaflet';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   
   const [regions, setRegions] = useState<WxRegion[]>([]);
