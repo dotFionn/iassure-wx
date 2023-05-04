@@ -14,7 +14,10 @@ const qnhLevelMapping = {
   500: 180,
   600: 140,
   700: 100,
+  800: 64,
   850: 50,
+  900: 30,
+  925: 25,
 };
 
 const necessaryDatapoints = [
