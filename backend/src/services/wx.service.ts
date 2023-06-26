@@ -1,6 +1,8 @@
 import axios from 'axios';
-import { WxFix } from './config.service';
 import regionsService from './regions.service';
+
+import { WxFix } from '@shared/types/config.types';
+import { WxFixData, WxData } from '@shared/types/wx.types';
 
 const cachedData: { [key: string]: WxData } = {};
 
@@ -12,7 +14,10 @@ const qnhLevelMapping = {
   500: 180,
   600: 140,
   700: 100,
+  800: 64,
   850: 50,
+  900: 30,
+  925: 25,
 };
 
 const necessaryDatapoints = [
@@ -30,34 +35,6 @@ const requestedData: string[] = [
 for (const qnh of Object.keys(qnhLevelMapping)) {
   for (const necessaryDatapoint of necessaryDatapoints) {
     requestedData.push(`${necessaryDatapoint}_${qnh}hPa`);
-  }
-}
-
-interface WxLevelData {
-  'T(K)': string;
-  windspeed: string;
-  windhdg: string;
-}
-
-export interface WxFixData {
-  coords: {
-    lat: string;
-    long: string;
-  };
-
-  levels: {
-    [key: string]: WxLevelData;
-  }
-}
-
-export interface WxData {
-  info: {
-    date: string;
-    datestring: string;
-    legal: string;
-  };
-  data: {
-    [key: string]: WxFixData;
   }
 }
 
