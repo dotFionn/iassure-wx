@@ -5,9 +5,10 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      target: development
+      target: build
       args:
         - NODE_ENV=development
+    command: npm run dev
     ports:
       - '3030:3000/tcp'
       - '9229:9229/tcp'

@@ -1,8 +1,9 @@
 import axios from 'axios';
+
 import regionsService from './regions.service';
 
-import { WxFix } from '@shared/types/config.types';
-import { WxFixData, WxData } from '@shared/types/wx.types';
+import { WxFix } from '@/shared/types/config.types';
+import { WxFixData, WxData } from '@/shared/types/wx.types';
 
 const cachedData: { [key: string]: WxData } = {};
 

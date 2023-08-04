@@ -1,9 +1,10 @@
 import express, { NextFunction, Request, Response } from 'express';
-import nodesched from 'node-schedule';
 import morgan from 'morgan';
+import nodesched from 'node-schedule';
+
+import appConfig from './config';
 import router from './router';
 import wxService from './services/wx.service';
-import appConfig from './config';
 
 const app = express();
 
@@ -19,7 +20,7 @@ if (config.apiBasePath) {
 if (!config.disableDefaultApiEndpoint) {
   app.use('/api', router.router);
 
-  const frontendRoot = '/opt/frontend/dist';
+  const frontendRoot = '/opt/dist/frontend';
   app.use(express.static(frontendRoot));
   app.use((req, res) => res.sendFile(`${frontendRoot}/index.html`));
 }

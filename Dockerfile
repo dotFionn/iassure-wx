@@ -5,48 +5,45 @@ FROM node:16-alpine as base
 
 WORKDIR /opt
 
-COPY . .
+ENV NODE_ENV production
 
-WORKDIR /opt/backend
+RUN apk update && \
+    apk upgrade && \
+    npm i npm@latest -g && \
+    chown node:node -R /opt
+    
+    # && \
+    # apk add --no-cache bash && \
+    # apk add --no-cache git && \
 
-ARG NODE_ENV=production
-ENV NODE_ENV ${NODE_ENV}
+COPY --chown=node:node package*.json ./
 
-RUN npm i npm@latest -g
-
-RUN chown node:node -R /opt
 USER node
 
 # ################################################################
-# ###                     development image                    ###
-# ################################################################
-FROM base as development
-
-RUN npm install --quiet --unsafe-perm --no-progress --no-audit --include=dev
-
-CMD npm run dev
-
-# ################################################################
-# ###                    backend build image                   ###
+# ###                        build image                       ###
 # ################################################################
 
-FROM base as backendbuild
+FROM base as build
 
-RUN npm install --quiet --unsafe-perm --no-progress --no-audit --include=dev
+ENV NODE_ENV development
 
-RUN npx tsc -p ./tsconfig.json
+COPY --chown=node:node . .
+
+RUN npm install && npm cache clean --force
+ENV PATH /opt/node_modules/.bin:$PATH
+
+RUN tsc -p ./tsconfig.node.json && \
+    resolve-tspaths --out "dist" && \
+    npm run spa-build
 
 # ################################################################
-# ###                   frontend build image                   ###
+# ###                      modules image                       ###
 # ################################################################
 
-FROM base as frontendbuild
+FROM base as modules
 
-WORKDIR /opt/frontend
-
-RUN npm install --quiet --unsafe-perm --no-progress --no-audit --include=dev
-
-RUN npm run build
+RUN npm install && npm cache clean --force
 
 # ################################################################
 # ###                     production image                     ###
@@ -54,9 +51,9 @@ RUN npm run build
 
 FROM base as production
 
-COPY --from=backendbuild --chown=node:node /opt/backend/dist/ /opt/backend/dist/
-COPY --from=frontendbuild --chown=node:node /opt/frontend/dist/ /opt/frontend/dist/
+COPY --from=build --chown=node:node /opt/dist ./dist
+COPY --from=modules --chown=node:node /opt/node_modules ./node_modules
 
-RUN npm install --quiet --unsafe-perm --no-progress --no-audit --omit=dev
+COPY --chown=node:node ./wx-config.* ./
 
-CMD node --es-module-specifier-resolution=node dist/backend/src/app.js
+CMD node dist/backend/app.js

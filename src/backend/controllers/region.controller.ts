@@ -1,4 +1,5 @@
 import express from 'express';
+
 import regionsService from '../services/regions.service';
 
 export async function getRegions(req: express.Request, res: express.Response, next: express.NextFunction) {

@@ -1,5 +1,6 @@
 import fs from 'fs';
-import { WxConfig } from '@shared/types/config.types';
+
+import { WxConfig } from '@/shared/types/config.types';
 
 
 export function getConfig(): WxConfig {
