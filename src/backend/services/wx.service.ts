@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import logger from '../logger';
+
 import regionsService from './regions.service';
 
 import { WxFix } from '@/shared/types/config.types';
@@ -98,7 +100,7 @@ export async function generateData() {
 }
 
 export function wrappedGenerateData() {
-  generateData().catch((...params) => console.error(...params));
+  generateData().catch((...params) => logger.error('%o', params));
 }
 
 export function getWx(region: string): WxData | null {

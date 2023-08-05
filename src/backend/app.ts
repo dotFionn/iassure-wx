@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import nodesched from 'node-schedule';
 
 import appConfig from './config';
+import logger from './logger';
 import router from './router';
 import wxService from './services/wx.service';
 
@@ -27,7 +28,7 @@ if (!config.disableDefaultApiEndpoint) {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err, req: Request, res: Response, next: NextFunction) => {
-  console.log('err', err);
+  logger.error('%o', err);
   
   // 500
   res.status(500).json({ msg: 'an error occurred' });
@@ -37,20 +38,18 @@ nodesched.scheduleJob('regenerate data', '*/30 * * * *', wxService.wrappedGenera
 wxService.wrappedGenerateData();
 
 const server = app.listen(config.port, () => {
-  console.log(
-    `application is listening on port ${config.port}`,
-  );
+  logger.info('application is listening on port %s', config.port);
 });
 
 function processShutdown(signal: string) {
-  console.log(`${signal} signal received. Shutting down.`);
+  logger.warn('%s signal received. Shutting down.', signal);
   server.close((err) => {
     if (err) {
-      console.error(`Failed to shut down server gracefully: ${err}`);
+      logger.error('Failed to shut down server gracefully: %o', err);
       process.exit(1);
     }
 
-    console.log('Server closed');
+    logger.info('Server closed');
     process.exit(0);
   });
 }

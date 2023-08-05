@@ -1,11 +1,4 @@
-export interface Config {
-  port: number;
-  apiBasePath: string;
-  disableDefaultApiEndpoint: boolean;
-  trustProxy: string | boolean;
-}
-
-export default function appConfig(): Config {
+export default function appConfig() {
   const {
     PORT,
     BASE_PATH,
@@ -21,8 +14,15 @@ export default function appConfig(): Config {
 
   return {
     port: Number(PORT ?? 3000),
+
     apiBasePath: BASE_PATH ?? '',
     trustProxy,
+
     disableDefaultApiEndpoint: DISABLE_DEFAULT_API_ENDPOINT == 'true',
+
+    logging: {
+      levelConsole: process.env.LOG_LEVEL_CONSOLE || 'http',
+      levelFile: process.env.LOG_LEVEL_FILE || 'info',
+    },
   };
 }
