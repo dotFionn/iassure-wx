@@ -5,7 +5,7 @@ import logger from '../logger';
 import regionsService from './regions.service';
 
 import { WxFix } from '@/shared/types/config.types';
-import { WxFixData, WxData } from '@/shared/types/wx.types';
+import { WxFixData, WxData, WxLevelData } from '@/shared/types/wx.types';
 
 const cachedData: { [key: string]: WxData } = {};
 
@@ -41,6 +41,20 @@ for (const qnh of Object.keys(qnhLevelMapping)) {
   }
 }
 
+function normalizeLevelData({ hdg, speed, temp }: { temp: number, speed: number, hdg: number }): WxLevelData {
+  hdg ??= 0;
+  speed ??= 0;
+  temp ??= 0;
+
+  temp += 273.15;
+
+  return {
+    'T(K)': String(temp),
+    'windspeed': String(speed),
+    'windhdg': String(hdg),
+  };
+}
+
 export async function getDataAtFix(fix: WxFix, index: number): Promise<WxFixData> {
   const response = await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${fix.lat}&longitude=${fix.lon}&windspeed_unit=kn&forecast_days=1&hourly=${requestedData.join(',')}`);
   const hourlyData = response.data.hourly;
@@ -53,22 +67,21 @@ export async function getDataAtFix(fix: WxFix, index: number): Promise<WxFixData
     levels: {},
   };
 
-  data.levels['0'] = {
-    'T(K)': String(Number(hourlyData?.temperature_2m?.[index]) + 273.15),
-    'windspeed': String(hourlyData?.windspeed_10m?.[index]),
-    'windhdg': String(hourlyData?.winddirection_10m?.[index]),
-  };
+
+
+  data.levels['0'] = normalizeLevelData({
+    hdg: hourlyData?.winddirection_10m?.[index],
+    speed: hourlyData?.windspeed_10m?.[index],
+    temp: hourlyData?.temperature_2m?.[index],
+  });
+  
 
   for (const [qnh, fl] of Object.entries(qnhLevelMapping)) {
-    const temp = Number(hourlyData?.[`temperature_${qnh}hPa`]?.[index]) + 273.15;
-    const dir = hourlyData?.[`winddirection_${qnh}hPa`]?.[index];
-    const speed = hourlyData?.[`windspeed_${qnh}hPa`]?.[index]; 
-
-    data.levels[String(fl)] = {
-      'T(K)': String(temp),
-      'windspeed': String(speed),
-      'windhdg': String(dir),
-    };
+    data.levels[String(fl)] = normalizeLevelData({
+      temp: Number(hourlyData?.[`temperature_${qnh}hPa`]?.[index]),
+      hdg: hourlyData?.[`winddirection_${qnh}hPa`]?.[index],
+      speed: hourlyData?.[`windspeed_${qnh}hPa`]?.[index],
+    });
   }
 
   return data;
