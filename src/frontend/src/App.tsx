@@ -1,14 +1,16 @@
 import 'leaflet/dist/leaflet.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import { MapContainer, TileLayer, LayersControl, LayerGroup, Popup, Marker } from 'react-leaflet';
-import { Button, Modal, Table } from 'react-bootstrap';
-
-import { useEffect, useState } from 'react';
-import wxService from './services/wx.service';
-import { WxRegion } from '@shared/types/config.types';
-import { WxData } from '../../shared/src/types/wx.types';
 import { DivIcon } from 'leaflet';
+import { useEffect, useState } from 'react';
+import { Button, Modal, Table } from 'react-bootstrap';
+import { MapContainer, TileLayer, LayersControl, LayerGroup, Popup, Marker } from 'react-leaflet';
+
+import wxService from './services/wx.service';
+
+import { WxRegion } from '@/shared/types/config.types';
+import { WxData } from '@/shared/types/wx.types';
+
 
 function App() {
   const [showModal, setShowModal] = useState(false);

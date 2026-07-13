@@ -1,6 +1,7 @@
-import { WxRegion } from '@shared/types/config.types';
-import { WxData } from '@shared/types/wx.types';
 import axios from 'axios';
+
+import { WxRegion } from '@/shared/types/config.types';
+import { WxData } from '@/shared/types/wx.types';
 
 async function getRegions(): Promise<WxRegion[]> {
   const response = await axios.get<WxRegion[]>('/api/regions');

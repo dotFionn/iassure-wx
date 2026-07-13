@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/backend/**/*",
+    "src/shared/**/*"
+  ],
+  "compilerOptions": {
+    "composite": false,
+    "moduleResolution": "bundler"
+  }
+}
