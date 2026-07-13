@@ -2,10 +2,10 @@
   "extends": "./tsconfig.json",
   "include": [
     "src/backend/**/*",
-    "src/shared/**/*",
-    "src/frontend/vite.config.ts"
+    "src/shared/**/*"
   ],
   "compilerOptions": {
-    "composite": false
+    "composite": false,
+    "moduleResolution": "bundler"
   }
 }
